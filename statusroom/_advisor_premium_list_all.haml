@@ -1,0 +1,57 @@
+- if @filter[:timeline] != 'month' && @filter[:timeline] != 'quarter'
+  - premiums = Premium.year(@year_num).thru_month(@filter[:month]||Time.now.month)
+- elsif @filter[:timeline] == 'month'
+  - premiums = Premium.year(@year_num).month(@filter[:month])
+- else
+  - premiums = Premium.year(@year_num).quarter_from_month(@filter[:month])
+
+- if @filter[:timeline] == 'quarter'
+  - label_prefix = "#{QUARTERNAMES[@filter[:month].to_i]}<br />"
+- peeps = @peeps = User.valid_advisors.all(:select => 'id, guardian_num, guardian_name, display_name, apr_status, first_name, last_name, contract_type')
+- sort = params[:sort] || 'all_premiums'
+- @data = premiums.performance_by_agent.all(:order => "#{sort} DESC")
+- data_label = timeline_data_label
+
+#all.table
+  %table.ra_default.ra_default
+    %tr
+      %th.lalign{:colspan => "9"}
+        .btn_container.right
+          %span.btn.btn-small-white= link_to 'Export List to CSV', formatted_agency_path(:format => :csv, :tab => 'premium', :sort => params[:sort], :year => @year_num, :filter => @filter)
+        %h2
+          All Agency Listing
+          %span{:style => "font-size:12px;font-style:italic"}= data_label
+          %p{:style => "font-size:11px;font-style:italic;font-weight:normal;margin:0"}= "Total of #{number_with_delimiter(@peeps.size)} producers in Agency"
+    %tr
+      %th #
+      %th ID
+      %th Type
+      %th.calign APR
+      %th Advisor
+      %th.calign{:class => "#{params[:sort] == 'all_premiums' ? 'sorted_desc' : 'sortable'}"}= link_to_function "#{label_prefix}Total Premium", "_('#advisor_premium_list').load('#{agency_advisor_premium_list_path(:year => @year_num, :filter => @filter, :sort => 'all_premiums', :tab => 'ALL')}')"
+      %th.calign{:class => "#{params[:sort] == 'life_premium' ? 'sorted_desc' : 'sortable'}"}= link_to_function "#{label_prefix}Life Premium", "_('#advisor_premium_list').load('#{agency_advisor_premium_list_path(:year => @year_num, :filter => @filter, :sort => 'life_premium', :tab => 'ALL')}')"
+      %th.calign{:class => "#{params[:sort] == 'di_premium' ? 'sorted_desc' : 'sortable'}"}= link_to_function "#{label_prefix}DI Premium", "_('#advisor_premium_list').load('#{agency_advisor_premium_list_path(:year => @year_num, :filter => @filter, :sort => 'di_premium', :tab => 'ALL')}')"
+      %th.calign{:class => "#{params[:sort] == 'lc_premium' ? 'sorted_desc' : 'sortable'}"}= link_to_function "#{label_prefix}LTC Premium", "_('#advisor_premium_list').load('#{agency_advisor_premium_list_path(:year => @year_num, :filter => @filter, :sort => 'lc_premium', :tab => 'ALL')}')"
+    %tr
+
+      - if year_totals = premiums.performance.detect {|pe| pe.year.to_i == @year_num.to_i }
+        %th.ra{:colspan => 5}= "Total for all #{number_with_delimiter(@data.size)} agency producers listed"
+        %th.ra= number_to_currency(year_totals.all_premiums   , :precision => 0)
+        %th.ra= number_to_currency(year_totals.life_premium   , :precision => 0)
+        %th.ra= number_to_currency(year_totals.di_premium     , :precision => 0)
+        %th.ra= number_to_currency(year_totals.lc_premium     , :precision => 0)
+
+    - @data.each_with_index do |d, index|
+      - if peep = peeps.detect{|peep| peep.guardian_num == d[:guardian_num] }
+        %tr
+          %td= index+1
+          %td= peep.guardian_num
+          %td= peep.contract_code rescue ""
+          %td= apr_status_indicator(peep)
+          %td.la= link_to peep.display_name, advisor_path(peep)
+          %td= number_to_currency(d[:all_premiums], :precision => 0)
+          %td= number_to_currency(d[:life_premium], :precision => 0)
+          %td= number_to_currency(d[:di_premium], :precision => 0)
+          %td= number_to_currency(d[:lc_premium], :precision => 0)
+
+- peeps = @peeps = @data = nil

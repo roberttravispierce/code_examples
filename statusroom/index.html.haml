@@ -1,0 +1,36 @@
+- set_titles "Production Dashboard"
+%table.dashboard
+  %tr
+    %td.main
+      = dashboard_notice
+      %h1{:style => "margin:0"}
+        = "Agency Production Summary"
+      %small{:style => "margin:0 0 0 9px"}
+        %span= "Updated: #{last_premium_updated_date} "
+        %span.light.italic= "(No updates available on Sundays & Mondays)"
+      = render :partial => 'agency_performance'
+      %h1 Agency Top Performers
+      -if current_account.show_premium_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'Total Premium', :label => 'Total Premium', :section => 'top_premium'}
+      -if current_account.show_life_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'Life', :label => 'Life', :section => 'top_life'}
+      -if current_account.show_di_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'DI', :label => 'Disability (DI)', :section => 'top_di'}
+      -if current_account.show_ltc_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'LTC', :label => 'Long-Term Care (LTC)', :section => 'top_ltc'}
+      -if current_account.show_credits_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'Club Credits', :label => 'Club Credits', :section => 'top_credits'}
+      -if current_account.show_gdc_on_dashboard?
+        = render :partial => 'top_performers', :locals => {:short_label => 'GDC', :label => 'GDC', :section => 'top_gdc'}
+    %td.sidebar
+      %a.fg-button.fg-button-icon-left.ui-state-default.ui-corner-all{ :href => advisor_path(current_user) }
+        %span.ui-icon.ui-icon-bookmark
+        View My Production
+      %br.clear
+      - if @my_producer_cases && @my_producer_cases.length > 0
+        = render :partial => 'sale_cases/producer_cases'
+      -if current_account.dashboard_news.present?
+        .information.mini_panel.left.ui-corner-all{:style => "margin: 12px 0 6px 0"}
+          %h2.title Current News
+          .content= current_account.dashboard_news
+      %br.clear
