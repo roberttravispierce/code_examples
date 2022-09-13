@@ -1,0 +1,14 @@
+# https://github.com/eggplanetio/mert
+
+root: "~/dev/pstat"
+launch_strategy: tab
+split_strategy: vertical
+layout:
+  -
+    - bundle exec guard
+    - bin/webpack-dev-server
+    - rails server -p 5005
+  -
+    - bundle exec sidekiq
+    - bin/rails console
+    -

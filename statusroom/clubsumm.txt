@@ -1,0 +1,59 @@
+
+
+DE CALIFORNIA PAC                             CLUBS AND AWARDS SUMMARY AS OF 06/30/08                                     Page  1
+
+Run Date: 07/03/2008    OnDemand: CLUBSUMM
+-----------------------------------------------------------------------------------------------------------------------------------
+KEN ABRAMS              - LT670 - FR EXP
+                                    LIVES/CASES   CLUB CREDITS    TOTALS FOR CLUB QUALIFICATION          LIVES/CASES   CLUB CREDITS
+   LIFE (excludes PAL, VUL)                0.00           0.00    Club Credits:  Life, DI, LTC   (70%)          0.00       1,054.19
+   DI:                                     0.00       1,054.19    Club Credits:  Other           (30%)          0.00       4,050.30
+   LTC:                                    0.00           0.00                                            ----------  -------------
+   BONUS CREDITS                           N/A            0.00    Club Credits: Total:                          0.00       5,104.49
+   GROUP: (GUARDIAN & JOINT VENTURE)       0.00           0.00                                            ==========   ============
+   PAS PRODUCTS:                                                  TOTALS FOR APR, BENEFITS, WAP
+       PAL & VUL (EQUITY BASED LIFE)       0.00           0.00    Benefits Credits: Life DI LTC PAL VUL (70%)   0.00       1,054.19
+       PROP VA, MF                         0.00          75.00    Benefits Credits: Other Eligible      (30%)   0.00          75.00
+       NON PROP VA, MF, VL & PLAN FEES      ---       3,975.30                                            ----------   ------------
+   GROUP PENSION 401(k):                    ---           0.00    Benefits Credits: Total:                      0.00       1,129.19
+   ASSET MANAGEMENT FEES: (Prop & Non-Prop) ---           0.00                                            ==========  =============
+   GUARDIAN TRUST COMPANY:                  ---           0.00    QUALIFICATION STATUS:
+   IUS:                                    0.00           0.00    APR:  NOT ON TARGET
+                                                                  CLUB: NOT ON TARGET
+ PCO Persistency:  Lives: 100.0% Volume: 100.0% Premium: 100.0%   WAP:  NOT ON TARGET
+ WAP Total Life, DI, LTC INFORCE:      111,285.00                 Medical/Dental Contribution 2009 Estimate:   0.0%
+ Centurion Praetorian Persistency:                                Centurion:  NOT ON TARGET
+      Life PT DI & LTC Lives: 100.0%  Life Premium: 100.0%        Praetorian: NOT ON TARGET
+      MDRT           COMMISSIONS           PREMIUM                MDRT: NOT ON TARGET FOR MDRT BASIC
+      UNLIMITED:        1,166.69          2,258.00                NSAA: NOT ON TARGET
+      LIMITED:         11,925.90         57,055.86                NQA:  REQUIREMENTS NOT MET
+      TOTAL:           13,092.59         59,313.86
+-----------------------------------------------------------------------------------------------------------------------------------
+JOHN ADAMS                - TK593 - FR INEXP
+                                    LIVES/CASES   CLUB CREDITS    TOTALS FOR CLUB QUALIFICATION          LIVES/CASES   CLUB CREDITS
+   LIFE (excludes PAL, VUL)                8.78      23,604.51    Club Credits:  Life, DI, LTC   (70%)         13.30      33,529.91
+   DI:                                     3.02       2,826.85    Club Credits:  Other           (30%)          2.83       9,794.74
+   LTC:                                    1.50       7,098.55                                            ----------  -------------
+   BONUS CREDITS                           N/A            0.00    Club Credits: Total:                         16.13      43,324.65
+   GROUP: (GUARDIAN & JOINT VENTURE)       0.00           0.00                                            ==========   ============
+   PAS PRODUCTS:                                                  TOTALS FOR APR, BENEFITS, WAP
+       PAL & VUL (EQUITY BASED LIFE)       0.00           0.00    Benefits Credits: Life DI LTC PAL VUL (70%)  13.30      33,529.91
+       PROP VA, MF                         2.83       4,362.83    Benefits Credits: Other Eligible      (30%)   2.83       4,416.84
+       NON PROP VA, MF, VL & PLAN FEES      ---       2,053.18                                            ----------   ------------
+   GROUP PENSION 401(k):                    ---          54.01    Benefits Credits: Total:                     16.13      37,946.75
+   ASSET MANAGEMENT FEES: (Prop & Non-Prop) ---       3,324.72                                            ==========  =============
+   GUARDIAN TRUST COMPANY:                  ---           0.00    QUALIFICATION STATUS:
+   IUS:                                    0.00           0.00    APR:  QUALIFIED
+                                                                  CLUB: NOT ON TARGET
+ PCO Persistency:  Lives:  97.3% Volume:  98.7% Premium:  98.3%   WAP:  NOT ON TARGET
+ WAP Total Life, DI, LTC INFORCE:    1,180,740.00                 Medical/Dental Contribution 2009 Estimate:  50.0%
+ Centurion Praetorian Persistency:                                Centurion:  NOT ON TARGET
+      Life PT DI & LTC Lives:  97.8%  Life Premium:  98.3%        Praetorian: NOT ON TARGET
+      MDRT           COMMISSIONS           PREMIUM                MDRT: ON TARGET FOR MDRT BASIC
+      UNLIMITED:       40,155.18         26,225.46                NSAA: NOT ON TARGET
+      LIMITED:          9,484.26         88,094.82                NQA:  ON TARGET FOR NQA
+      TOTAL:           49,639.44        114,320.28
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Dashed fields indicate data is NOT APPROPRIATE to include in Club and Awards Calculations.
+All clubs and awards status messages reflect production requirements only; other education/membership requirements are not reflected

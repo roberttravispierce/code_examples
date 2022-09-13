@@ -1,2 +1,2 @@
 # code_examples
-Some examples of my code for evaluation
+Some examples of my Ruby & Rails code for evaluation

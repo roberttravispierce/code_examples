@@ -1,0 +1,161 @@
+:javascript
+  // Testing: http://live.datatables.net/diyawupu/1/edit
+  $(document).on('turbo:load', function () {
+    // $('#projects-listing').dataTable();
+    var table = $('#projects-listing').dataTable({
+      destroy: true,
+      stateSave: true,
+      responsive: true,
+      lengthMenu: [
+        [10, 25, 50, 100, -1],
+        [10, 25, 50, 100, "All"]
+      ],
+      language: {
+        "search": "Filter:",
+        "emptyTable": "No projects available in table",
+        "info": "Showing _START_ to _END_ of _TOTAL_ projects",
+        "infoEmpty":      "Showing 0 to 0 of 0 projects",
+        "infoFiltered":   "(filtered from _MAX_ total projects)",
+        "lengthMenu":     "Show _MENU_ projects",
+      },
+      dom: '<"top"lf>rt<"bottom"ip><"clear">',
+      pageLength: 100,
+      order: [],
+      })
+      // Below is an example to keep:
+      // $('#projects-listing').removeClass( 'display' ).addClass('table table-striped table-bordered');
+  });
+= page_title "Projects"
+- content_for :breadcrumbs do
+  .max-w-7xl.mx-auto.px-7.sm:px-8.border-t.border-gray-200
+    .py-3
+      .-ml-4.-mt-4.flex.justify-between.items-center.flex-wrap.sm:flex-nowrap
+        %nav.flex.ml-4.mt-4{"aria-label" => "Breadcrumb"}
+          .flex.sm:hidden
+            = link_to root_path, class: "group inline-flex space-x-3 text-sm font-medium text-gray-500 hover:text-gray-700 mr-4" do
+              %svg.flex-shrink-0.h-5.w-5.text-gray-400.group-hover:text-gray-600{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+                %path{"clip-rule" => "evenodd", :d => "M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z", "fill-rule" => "evenodd"}
+            %svg.flex-shrink-0.h-5.w-5.text-gray-300{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+              %path{:d => "M5.555 17.776l8-16 .894.448-8 16-.894-.448z"}
+            = link_to projects_path, class: "ml-4 text-sm font-medium text-gray-500 hover:text-gray-700" do
+              Projects
+          .hidden.sm:block
+            %ol.flex.items-center.space-x-2.list-none
+              %li
+                %div
+                  = link_to root_path, class: "text-gray-400 hover:text-gray-500" do
+                    %svg.flex-shrink-0.h-5.w-5{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+                      %path{:d => "M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"}
+                    %span.sr-only Home
+              %li
+                .flex.items-center
+                  %svg.flex-shrink-0.h-5.w-5.text-gray-300{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+                    %path{:d => "M5.555 17.776l8-16 .894.448-8 16-.894-.448z"}
+                  .ml-2.text-sm.font-medium.text-gray-500
+                    Projects
+= turbo_frame_tag 'project'
+%div{"data-controller" => "project-modal", "data-project-modal-prevent-default-action-opening" => "false"}
+  .mt-4
+    .max-w-6xl.mx-auto.px-4
+      .flex.items-center.justify-between.flex-wrap
+        .flex.justify-start
+
+          -# Project Network filter dropdown
+          .mt-1.relative{"data-controller" => "dropdown", "data-dropdown-active-target" => "#activeTarget"}
+            %button.relative.w-full.bg-white.border.border-gray-300.rounded-md.shadow-sm.pl-3.pr-10.py-2.text-left.cursor-default.focus:outline-none.focus:ring-1.focus:ring-primary-500.focus:border-primary-500.text-md{"data-action" => "click->dropdown#toggle click@window->dropdown#hide", "data-dropdown-target" => "button", :role => "button", :tabindex => "0"}
+              .flex.items-center
+                %span.ml-1.block.truncate
+                  - if @network
+                    = "Projects for #{@network.full_name}"
+                  - else
+                    = "Projects for All Networks"
+                %span.ml-1.text-sm.text-gray-600
+                  = "(#{@project_count_for_network})"
+              %span.absolute.inset-y-0.right-0.flex.items-center.pr-2.pointer-events-none
+                %svg.h-5.w-5.text-gray-400{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+                  %path{"clip-rule" => "evenodd", :d => "M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z", "fill-rule" => "evenodd"}
+            %ul#activeTarget.absolute.z-40.list-none.w-full.bg-white.shadow-lg.max-h-96.rounded-md.py-1.text-base.ring-1.ring-black.ring-opacity-5.overflow-auto.focus:outline-none.sm:text-sm.hidden{"data-dropdown-target" => "menu", :tabindex => "-1"}
+              - network_filter_options.each do |option|
+                %li.text-gray-900.cursor-default.relative.py-2.pl-3.pr-9
+                  = link_to projects_path(n: option[1]), s: @state_filter , class: "text-gray-600 hover:text-primary-500" do
+                    .flex.items-center
+                      %span.font-normal.ml-2.block.truncate
+                        = option[0]
+
+          -# Project State filter dropdown
+          .mt-1.ml-2.relative{"data-controller" => "dropdown", "data-dropdown-active-target" => "#activeTarget"}
+            %button.relative.w-full.bg-white.border.border-gray-300.rounded-md.shadow-sm.pl-3.pr-10.py-2.text-left.cursor-default.focus:outline-none.focus:ring-1.focus:ring-primary-500.focus:border-primary-500.text-md{"data-action" => "click->dropdown#toggle click@window->dropdown#hide", "data-dropdown-target" => "button", :role => "button", :tabindex => "0"}
+              .flex.items-center
+                %span.ml-1.block.truncate
+                  - if @state_filter == "all"
+                    = "In All Statuses"
+                  - else
+                    = "#{@state_filter.titleize} Status"
+                %span.ml-1.text-sm.text-gray-600
+                  = "(#{@projects.count})"
+              %span.absolute.inset-y-0.right-0.flex.items-center.pr-2.pointer-events-none
+                %svg.h-5.w-5.text-gray-400{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+                  %path{"clip-rule" => "evenodd", :d => "M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z", "fill-rule" => "evenodd"}
+            %ul#activeTarget.absolute.z-40.list-none.w-full.bg-white.shadow-lg.max-h-96.rounded-md.py-1.text-base.ring-1.ring-black.ring-opacity-5.overflow-auto.focus:outline-none.sm:text-sm.hidden{"data-dropdown-target" => "menu", :tabindex => "-1"}
+              - state_filter_options.each do |option|
+                %li.text-gray-900.cursor-default.relative.py-2.pl-3.pr-9
+                  = link_to projects_path(n: @network_filter, s: option[1]), class: "text-gray-600 hover:text-primary-500" do
+                    .flex.items-center
+                      %span.font-normal.ml-2.block.truncate
+                        = option[0]
+        %div
+          %span.inline-flex.rounded-md.shadow-sm
+            = link_to 'New Project', new_project_path, class: "btn btn-primary", data: { action: "click->project-modal#open", 'turbo-frame': 'project' } if current_user.has_employee_rights?
+  %main.max-w-7xl.mx-auto.lg:w-full.py-4.px-4.pb-8
+    .lg:grid.lg:grid-cols-12.lg:gap-x-5
+      .space-y-6.sm:px-6.lg:px-0.lg:col-span-12
+        .bg-white.shadow.sm:rounded-lg.pb-3
+          .align-middle.min-w-full.overflow-x-auto.overflow-hidden.pt-4
+            - if @projects.any?
+              %table#projects-listing.stripe.row-border.hover.min-w-full
+                %thead
+                  %tr
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "1"} PCode
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "7"} Status
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "4"} Name
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "3"} Series
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "5"} Dist Code
+                    %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider{"data-priority" => "1"} Year
+                %tbody
+                  - @projects.each_with_index do |project, idx|
+                    %tr
+                      %td.font-bold.py-4.whitespace-nowrap.slashed-zero.tabular-nums.border-l-8{class: "border-network-#{project.network.short_name.downcase.delete(' ') if project.network}"}
+                        = link_to project.pcode, project, class: "state-#{project.state.try(:dasherize)}-text"
+                      %td.text-sm.px-6.py-4.whitespace-nowrap
+                        %span.px-2.inline-flex.text-xs.leading-5.rounded-md.border-1
+                          = render 'projects/status_badge', project: project, show_production_prefix: false
+                        .hidden
+                          = project.hosts
+                          = project.guests
+                          = project.year
+                      %td.text-sm.px-6.py-4.whitespace-nowrap.truncate
+                        = truncate(project.name, length: 40)
+                      %td.text-sm.px-6.py-4.whitespace-nowrap
+                        - if project.serial
+                          = project.serial.serial_code
+                        - else
+                          \-
+                      %td.text-sm.px-6.py-4.whitespace-nowrap
+                        = project.current_dist_code
+                      %td.text-sm.px-6.py-4.whitespace-nowrap
+                        = project.year
+                  %tfoot
+            - else
+              .font-normal.text-xs.text-gray-800.m-6 No projects to list
+        - if current_user.has_manager_rights?
+          .bg-gray-100.shadow.sm:rounded-lg.pb-3
+            .space-y-1.py-4.px-4
+              %h3.px-3.text-xs.font-semibold.text-gray-500.uppercase.tracking-wider
+                Create Historical Project Links
+              .space-y-1.pl-2
+                - (2015..2020).to_a.reverse.each do |year|
+                  = link_to new_project_path(year: year), class: "group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50", data: { action: "click->project-modal#open", 'turbo-frame': 'project' } do
+                    %span.truncate
+                      = "Create #{year} Project"
+  = render partial: 'projects/modal_form'
+  -# dynamic styles that we want purgecss to recognize: border-network-parent border-network-latino border-network-daretodream border-network-french border-network-praisehim border-network-kids border-network-proclaim, border-network-radio, border-network-radiomusic, border-network-latinoradio, border-network-radioaustralia, border-network-radiorussia
